@@ -30,7 +30,7 @@ library(DT)
 # Load data --------------------------------------------------------------------
 
 
-linelist <- read_rds("D:/R Languaes/DataSet/linelist_cleaned.rds")
+linelist <- read_rds("./linelist_cleaned.rds")
 n_total <- nrow(linelist)
 min_date <- min(linelist$date_hospitalisation)
 head(max_date)
@@ -237,3 +237,4 @@ server <- function(input,output, session) {
 # Create the Shiny app object --------------------------------------------------
 
 shinyApp(ui = ui, server = server)
+

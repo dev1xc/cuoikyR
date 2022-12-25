@@ -64,6 +64,33 @@ gender_ratio <- linelist %>%
 
 gender_ratio
 
+hospital <- linelist %>%
+  group_by(hospital) %>%
+  summarise(Count = n())
+
+hospital
+
+
+hospital_ratio <- linelist %>%
+  group_by(hospital, outcome) %>%
+  summarise(Count = n(),.groups = drop) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+
+hospital_ratio
+
+hospital_gender_ratio <- linelist %>%
+  group_by(hospital, gender) %>%
+  summarise(Count = n()) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+hospital_gender_ratio
+
+hospital_gender_outcome_ratio <- linelist %>%
+  group_by(hospital, gender,outcome) %>%
+  summarise(Count = n()) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+hospital_gender_outcome_ratio
+
+
 graph1 <- linelist %>%
   ggplot() +
   geom_bar(aes(x = age_cat, fill = outcome)) +
@@ -77,8 +104,8 @@ graph1 <- linelist %>%
              position = position_stack(vjust = 0.5)) +
   theme_few() +
   theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
-  ggtitle("Biểu đồ tỉ lệ giới tính và xuất viện") +
-  scale_x_discrete(name= "Giới tính") +
+  ggtitle("Biểu đồ tỉ lệ tuổi và xuất viện") +
+  scale_x_discrete(name= "Tuổi") +
   scale_y_continuous(name = "Tổng bệnh nhân") +
   scale_fill_discrete(name = "Outcome", labels = c("Hồi phục", "Chết"))
 graph1
@@ -104,3 +131,44 @@ graph2 <- linelist %>%
   scale_y_continuous(name = "Tổng bệnh nhân") +
   scale_fill_discrete(name = "Outcome", labels = c("Hồi phục", "Chết"))
 graph2
+
+
+graph3 <- linelist %>%
+  ggplot() +
+  geom_bar(aes(x = hospital, fill = outcome)) +
+  geom_text(data = hospital, 
+            aes(x = hospital, y = Count, label = Count), 
+            position = position_dodge(width=0.9), 
+            vjust=-0.25, 
+            fontface = "bold") +
+  geom_label(data = hospital_ratio, 
+             aes(x = hospital, y = Count, label = paste0(Percentage, "%"), group = outcome), 
+             position = position_stack(vjust = 0.5)) +
+  theme_few() +
+  theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
+  ggtitle("Biểu đồ tỉ lệ giữ bệnh viện và xuất viện") +
+  scale_x_discrete(name= "Bệnh viện") +
+  scale_y_continuous(name = "Tổng bệnh nhân") +
+  scale_fill_discrete(name = "Outcome", labels = c("Hồi phục", "Chết"))
+graph3
+
+
+graph4 <- linelist %>%
+  ggplot() +
+  geom_bar(aes(x = gender, fill = outcome)) +
+  facet_wrap(~ hospital) +
+  geom_text(data = hospital_gender_ratio, 
+            aes(x = gender, y = Count, label = Count), 
+            position = position_dodge(width=0.9), 
+            vjust= -1.5, 
+            fontface = "bold") +
+  geom_label(data = hospital_gender_outcome_ratio, 
+             aes(x = gender, y = Count, label = paste0(Percentage, "%"), group = outcome), 
+             position = position_stack(vjust = 0.5)) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
+  ggtitle("Tỉ lệ giữa bệnh viện - giới tính - xuất viện") +
+  scale_x_discrete(name= "Tỉ lệ giới tính bệnh viện ") +
+  scale_y_continuous(name = "Passenger Count", limits = c(0,360)) +
+  scale_fill_discrete(name = "Xuất viện", labels = c("Chết", "Sống"))
+graph4

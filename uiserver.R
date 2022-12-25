@@ -1,3 +1,9 @@
+
+
+
+
+
+
 body2 <- fluidRow(
   sidebarPanel(
     selectInput(
@@ -171,14 +177,22 @@ body <- dashboardBody(
     ),
     tabItem(tabName = "graph",
             h2("Graph tab content"),
-    box( 
+    fluidRow(box( 
       title = "Tỉ lệ xuất viện và độ tuổi",
       plotOutput("graph1")
-     ),    
+    ),    
     box( 
-      title = "Tỉ lệ xuất viện và độ tuổi",
+      title = "Tỉ lệ giới tính và xuất viện",
       plotOutput("graph2")
-    ),     
+    ),    
+    box( 
+      title = "Tỉ lệ giữa bệnh viện và độ tuổi",
+      plotOutput("graph3")
+    ),    
+    box( 
+      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      plotOutput("graph4")
+    ),    )
       
     )
   )
@@ -206,7 +220,7 @@ ui <- dashboardPage(
   
 )
 
-server <- function(input, output) {
+server <- function(input, output,session) {
 
   ########################################################
   
@@ -257,8 +271,7 @@ server <- function(input, output) {
       sample_n(input$n) %>%
       select(case_id:age_cat)
     datatable(data = movies_sample,
-              options = list(pageLength = 10,scrollX = TRUE,
-                             scrollY = "250px"),
+              options = list(pageLength = 10),
               rownames = FALSE)
   })
   
@@ -307,6 +320,14 @@ server <- function(input, output) {
   output$graph2 <- renderPlot(
     graph2           # map the counts column `n` to the height
 
+  )
+  output$graph3 <- renderPlot(
+    graph3           # map the counts column `n` to the height
+    
+  )
+  output$graph4 <- renderPlot(
+    graph4           # map the counts column `n` to the height
+    
   )
 
 }

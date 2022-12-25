@@ -44,7 +44,7 @@ table1 <- linelist %>%
 table1
 
 table2 <-linelist %>%                  # begin with linelist
-  group_by(outcome1) %>%                         # group by outcome 
+  group_by(outcome) %>%                         # group by outcome 
   count(age_cat) %>%                            # group and count by age_cat, and then remove age_cat grouping
   mutate(percent = scales::percent(n / sum(n))) # calculate percent - note the denominator is by outcome group
 table2
@@ -89,3 +89,4 @@ table_long
 #######################################################################
 
 ################################################################
+

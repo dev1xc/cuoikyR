@@ -1,11 +1,11 @@
-# Development version of epicontacts (for transmission chains with a time x-axis)
-pacman::p_install_gh("reconhub/epicontacts@timeline")
-
-# The package for this handbook, which includes all the example data  
-pacman::p_install_gh("appliedepi/epirhandbook")
-
-
-install.packages("flextable")
+# # Development version of epicontacts (for transmission chains with a time x-axis)
+# pacman::p_install_gh("reconhub/epicontacts@timeline")
+# 
+# # The package for this handbook, which includes all the example data  
+# pacman::p_install_gh("appliedepi/epirhandbook")
+# 
+# 
+# install.packages("flextable")
 
 library(shinydashboard)
 library(shiny)
@@ -49,7 +49,7 @@ pacman::p_load(
 # import the linelist
 linelist <- read_rds("./linelist_cleaned.rds")
 View(linelist)
-
+n_total <- nrow(linelist)
 linelist <- na.omit(linelist)
 n_total <- nrow(linelist)
 min_date <- min(linelist$date_hospitalisation)
@@ -76,7 +76,7 @@ summary(linelist)
 explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
 
 ## convert dichotomous variables to 0/1 
-linelist <- linelist %>%  
+# linelist <- linelist %>%  
   # mutate(across(                                      
   #   .cols = all_of(c(explanatory_vars, "outcome")),  ## for each column listed and "outcome"
   #   .fns = ~case_when(                              
