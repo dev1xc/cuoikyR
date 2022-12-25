@@ -30,11 +30,13 @@ library(DT)
 # Load data --------------------------------------------------------------------
 
 
-linelist <- read_rds("./linelist_cleaned.rds")
+linelist <- read_rds("D:/R Languaes/DataSet/linelist_cleaned.rds")
 n_total <- nrow(linelist)
 min_date <- min(linelist$date_hospitalisation)
 head(max_date)
 max_date <- max(linelist$date_hospitalisation)
+linelist <- na.omit(linelist)
+
 # Define UI --------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -44,33 +46,27 @@ ui <- fluidPage(
         inputId = "y",
         label = "Y-axis:",
         choices = c(
-          "Hospital" = "hospital",
+
+          
           "Age" = "age",
-          "Age year" = "age_years",
-          "Age catagory" = "age_cat",
-          "Gender" = "gender",
-          "Outcome" = "outcome",
           "Height cm " = "ht_cm",
           "Weight kg " = "wt_kg"
-          
+
         ),
-        selected = "hospital"
+        selected = "age"
       ),
       
       selectInput(
         inputId = "x",
         label = "X-axis:",
         choices = c(
-          "Hospital" = "hospital",
-          "Age year" = "age_years",
-          "Age" = "age",
-          "Age catagory" = "age_cat",
-          "Gender" = "gender",
-          "Outcome" = "outcome",
+
+
           "Height cm " = "ht_cm",
           "Weight kg " = "wt_kg"
+
         ),
-        selected = "age_cat"
+        selected = "ht_cm"
       ),
       
       selectInput(
@@ -79,18 +75,13 @@ ui <- fluidPage(
         choices = c(
           
           "Age" = "age",
-          "Hospital" = "hospital",
-          "Age year" = "age_years",
           "Age catagory" = "age_cat",
           "Gender" = "gender",
-          "Outcome" = "outcome",
           "Height cm " = "ht_cm",
           "Weight kg " = "wt_kg"
         ),
-        selected = "gender"
+        selected = "wt_kg"
       ),
-      
-      br(), br(),
       
       dateRangeInput(
         inputId = "date",
@@ -99,6 +90,37 @@ ui <- fluidPage(
         min = min_date, max = max_date,
         startview = "year"
       ),
+      br(), br(),
+      
+      selectInput(
+        inputId = "b",
+        label = "Histogram",
+        choices = c(
+          "Age" = "age",
+          "Height cm " = "ht_cm",
+          "Weight kg " = "wt_kg",
+          "CT Blood " = "ct_blood"
+
+        ),
+        selected = "age"
+      ),
+      
+
+
+      selectInput(
+        inputId = "f",
+        label = "Bar Plot",
+        choices = c(
+          "Gender" = "gender",
+          "Out come" = "outcome",
+          "Hospital" = "hospital"
+       
+
+
+        ),
+        selected = "gender"
+      ),
+      
       
       sliderInput(
         inputId = "alpha",
@@ -142,10 +164,9 @@ ui <- fluidPage(
     mainPanel(
       tabsetPanel(
         type = "tabs",
-        tabPanel("LinearRegession", plotOutput(outputId = "scatterplot")),
-        tabPanel("LinearRegession", plotOutput(outputId = "scatterplot1")),
-        tabPanel("Test",plotOutput(outputId = "test")),
-        tabPanel("Summary", tableOutput("summary")),
+        tabPanel("Point PLot", plotOutput(outputId = "scatterplot")),
+        tabPanel("Bar Plot", plotOutput(outputId = "scatterplot1")),
+        tabPanel("Histogram Plot",plotOutput(outputId = "test")),
         tabPanel("Data", DT::dataTableOutput(outputId = "moviestable")),
  
       )
@@ -159,14 +180,17 @@ ui <- fluidPage(
 
 server <- function(input,output, session) {
   
-  output$test <- renderPlot(
-    ggplot(data = linelist, mapping = aes(x = age))+       # set data and axes
+  output$test <- renderPlot({
+    req(input$date)
+    movies_selected_date <- linelist %>%
+    filter(date_hospitalisation >= as.POSIXct(input$date[1]) & date_hospitalisation <= as.POSIXct(input$date[2]))
+    ggplot(data = linelist, aes_string(x = input$b))+       # set data and axes
       geom_histogram(              # display histogram
         binwidth = 7,                # width of bins
         color = "red",               # bin line color
         fill = "blue",               # bin interior color
         alpha = 0.1)                 # bin transparency
-  )
+  })
   
   new_plot_title <- eventReactive(
     eventExpr = input$update_plot_title,
@@ -184,24 +208,16 @@ server <- function(input,output, session) {
       labs(title = new_plot_title())
   })
   output$scatterplot1 <- renderPlot({
-    req(input$date)
-    movies_selected_date <- linelist %>%
-      filter(date_hospitalisation >= as.POSIXct(input$date[1]) & date_hospitalisation <= as.POSIXct(input$date[2]))
-    ggplot(data = movies_selected_date, aes_string(x = input$x, y = input$y, color = input$z)) +
-      geom_histogram() +
-      labs(title = new_plot_title())
+    
+    ggplot(data = linelist, mapping = aes(x = hospital))+     
+      geom_bar(aes_string(fill = input$f), color = "yellow")+         
+      labs(title = "")
+     
   })
 
   
   
   
-  
-  ggplot(data = linelist, mapping = aes(x = age))+       # set data and axes
-    geom_histogram(              # display histogram
-      binwidth = 7,                # width of bins
-      color = "red",               # bin line color
-      fill = "blue",               # bin interior color
-      alpha = 0.1)                 # bin transparency
   
   
   
@@ -221,4 +237,3 @@ server <- function(input,output, session) {
 # Create the Shiny app object --------------------------------------------------
 
 shinyApp(ui = ui, server = server)
-

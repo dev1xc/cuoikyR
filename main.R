@@ -26,7 +26,13 @@ library(augmentedRCBD)
 library(AugmenterR)
 library(ggplot2)
 library(DT)
-
+library(tidyr)
+library(readr) # Reading in data
+library(dplyr) # Data manipulation
+library(tibble) # Data manipulation
+library(ggplot2) # Data visualization
+library(ggthemes) # Data visualization
+library(RColorBrewer) # Data visualization
 
 pacman::p_load(
   rio,          # File import
@@ -45,12 +51,15 @@ linelist <- read_rds("./linelist_cleaned.rds")
 View(linelist)
 
 linelist <- na.omit(linelist)
+n_total <- nrow(linelist)
+min_date <- min(linelist$date_hospitalisation)
+max_date <- max(linelist$date_hospitalisation)
 
-sum(linelist$outcome == 0) 
-linelist$outcome1 <- linelist$outcome == 0
+# sum(linelist$outcome == 0) 
+# linelist$outcome1 <- linelist$outcome == 0
 
-linelist$outcome1[linelist$outcome1 == TRUE] <- "Recover"
-linelist$outcome1[linelist$outcome1 == FALSE] <- "Death"
+# linelist$outcome1[linelist$outcome1 == TRUE] <- "Recover"
+# linelist$outcome1[linelist$outcome1 == FALSE] <- "Death"
 #Duyệt dữ liệu
 skim(linelist)
 
@@ -68,14 +77,14 @@ explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
 
 ## convert dichotomous variables to 0/1 
 linelist <- linelist %>%  
-  mutate(across(                                      
-    .cols = all_of(c(explanatory_vars, "outcome")),  ## for each column listed and "outcome"
-    .fns = ~case_when(                              
-      . %in% c("m", "yes", "Death")   ~ 1,           ## recode male, yes and death to 1
-      . %in% c("f", "no",  "Recover") ~ 0,           ## female, no and recover to 0
-      TRUE                            ~ NA_real_)    ## otherwise set to missing
-  )
-  )
+  # mutate(across(                                      
+  #   .cols = all_of(c(explanatory_vars, "outcome")),  ## for each column listed and "outcome"
+  #   .fns = ~case_when(                              
+  #     . %in% c("m", "yes", "Death")   ~ 1,           ## recode male, yes and death to 1
+  #     . %in% c("f", "no",  "Recover") ~ 0,           ## female, no and recover to 0
+  #     TRUE                            ~ NA_real_)    ## otherwise set to missing
+  # )
+  # )
 
 ## add in age_category to the explanatory vars 
 explanatory_vars <- c(explanatory_vars, "age_cat")
