@@ -63,6 +63,8 @@ n_total <- nrow(linelist)
 min_date <- min(linelist$date_hospitalisation)
 max_date <- max(linelist$date_hospitalisation)
 
+
+
 # sum(linelist$outcome == 0) 
 # linelist$outcome1 <- linelist$outcome == 0
 
@@ -118,4 +120,4 @@ tuyen_tinh_don <- ggplot(points, aes(x = age)) +
   geom_line(aes(y = .fitted), colour = "red")
 tuyen_tinh_don
 #####################################################################################
-
+#####################################################################################

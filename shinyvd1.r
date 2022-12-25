@@ -1,31 +1,25 @@
 # Load packages ----------------------------------------------------------------
 
-library(shiny)
-library(ggplot2)
-library(tools)
-library(dplyr)
-
-library(tidyverse)
-
-library(magrittr)
-library(ggplot2)
-library(shinydashboard)
-library(dplyr)    # data.frames
-library(sf)       # Spatial
-
-# Interactive Data Viz
-library(leaflet)  # Maps
-library(dygraphs) # Charts
-library(DT)       # tables
-library(rvest)    # webscraping
-
-
-library(dqshiny)    # auto complete
-library(shiny)       # Starting Reactivity
-library(shinythemes) # themes
-library(plotly)
-library(DT)
-
+  library(shiny)
+  library(ggplot2)
+  library(tools)
+  library(dplyr)
+  library(tidyverse)
+  library(magrittr)
+  library(ggplot2)
+  library(shinydashboard)
+  library(dplyr)    # data.frames
+  library(sf)       # Spatial
+  # Interactive Data Viz
+  library(leaflet)  # Maps
+  library(dygraphs) # Charts
+  library(DT)       # tables
+  library(rvest)    # webscraping
+  library(dqshiny)    # auto complete
+  library(shiny)       # Starting Reactivity
+  library(shinythemes) # themes
+  library(plotly)
+  library(DT)
 
 # Load data --------------------------------------------------------------------
 

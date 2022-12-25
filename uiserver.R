@@ -158,8 +158,13 @@ body <- dashboardBody(
     
     tabItem(tabName = "linear",
             h2("Linear tab content",
-               plotOutput("plot1")
+               
             ),
+            tabBox(
+              width = "auto",
+              tabPanel("Tuyến tính đơn biến", plotOutput(outputId = "plot1")),
+              tabPanel("Tuyến tính đa biến", plotOutput(outputId = "plot2")),
+            )
    
     ),
     tabItem(tabName = "table",
@@ -301,6 +306,11 @@ server <- function(input, output,session) {
       geom_point(aes(y = ht_cm)) +
       ## add your regression line
       geom_line(aes(y = .fitted), colour = "red")
+  )
+  
+  
+  output$plot2 <- renderPlot(
+    linear_da_bien 
   )
 
   #########################################################
