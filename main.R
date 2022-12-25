@@ -25,7 +25,7 @@ library(readxl)
 library(augmentedRCBD)
 library(AugmenterR)
 library(ggplot2)
-
+library(DT)
 
 
 pacman::p_load(
