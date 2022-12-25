@@ -44,6 +44,7 @@ pacman::p_load(
 linelist <- read_rds("./linelist_cleaned.rds")
 View(linelist)
 
+linelist <- na.omit(linelist)
 
 sum(linelist$outcome == 0) 
 linelist$outcome1 <- linelist$outcome == 0

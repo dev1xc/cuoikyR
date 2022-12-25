@@ -4,7 +4,7 @@ body <- dashboardBody(
             h2("Dashboard tab content")
     ),
     
-    tabItem(tabName = "liner",
+    tabItem(tabName = "linear",
             h2("Linear tab content",
                plotOutput("plot1")
             ),
@@ -49,7 +49,8 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       menuItem("Tuyến tính", tabName = "linear", icon = icon("th")),
-      menuItem("Table", tabName = "table", icon = icon("th"))
+      menuItem("Bảng", tabName = "table", icon = icon("th")),
+      menuItem("Biểu đồ", tabName = "graph", icon = icon("th"))
     )
   ),
   body
@@ -87,3 +88,4 @@ server <- function(input, output) {
 
 
 shinyApp(ui, server)
+
