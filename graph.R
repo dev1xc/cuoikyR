@@ -35,7 +35,7 @@ survival_ratio <- linelist %>%               # case linelist
   tabyl(outcome) %>%       # tabulate counts and proportions by age category
   adorn_pct_formatting() 
 
-
+survival_ratio 
 
 
 gender <- linelist %>%
@@ -73,7 +73,7 @@ hospital
 
 hospital_ratio <- linelist %>%
   group_by(hospital, outcome) %>%
-  summarise(Count = n(),.groups = drop) %>%
+  summarise(Count = n()) %>%
   mutate(Percentage = round(Count/sum(Count)*100))
 
 hospital_ratio
@@ -172,3 +172,4 @@ graph4 <- linelist %>%
   scale_y_continuous(name = "Passenger Count", limits = c(0,360)) +
   scale_fill_discrete(name = "Xuất viện", labels = c("Chết", "Sống"))
 graph4
+

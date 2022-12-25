@@ -2,9 +2,16 @@
 
 
 
+body1 <- fluidRow(
+  valueBox(valuebox1, "Tổng bệnh nhân", icon = icon("credit-card"), color = "blue"),
+  valueBox(valuebox2, "Chiều cao trung bình", icon = icon("credit-card"), color = "light-blue"),
+  valueBox(valuebox3, "Cân nặng trung bình", icon = icon("credit-card"), color = "teal"),
+  valueBox(valuebox4, "% bệnh nhân khỏi bệnh", icon = icon("credit-card"), color = "aqua"),
+  valueBox(valuebox5, "Tuổi trung bình", icon = icon("credit-card"), color = "olive"),
+)
 
-
-body2 <- fluidRow(
+body2 <- 
+  fluidRow(
   sidebarPanel(
     selectInput(
       inputId = "y",
@@ -123,6 +130,8 @@ body2 <- fluidRow(
     )
   ),
   tabBox(
+    width = 8,
+
     tabPanel("Point PLot", plotOutput(outputId = "scatterplot")),
     tabPanel("Bar Plot", plotOutput(outputId = "scatterplot1")),
     tabPanel("Histogram Plot",plotOutput(outputId = "test")),
@@ -142,6 +151,7 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = "dashboard",
             h2("Dashboard tab content"),
+            body1,
             body2,
            
     ),
@@ -271,7 +281,8 @@ server <- function(input, output,session) {
       sample_n(input$n) %>%
       select(case_id:age_cat)
     datatable(data = movies_sample,
-              options = list(pageLength = 10),
+              options = list(pageLength = 20, scrollX = TRUE,
+                             scrollY = "500px"),
               rownames = FALSE)
   })
   

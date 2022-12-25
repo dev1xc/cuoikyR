@@ -5,7 +5,12 @@
 # pacman::p_install_gh("appliedepi/epirhandbook")
 # 
 # 
-# install.packages("flextable")
+# install.packages("devtools")
+
+
+
+library(devtools)
+# devtools::install_github("rmcelreath/rethinking")
 
 library(shinydashboard)
 library(shiny)
@@ -33,6 +38,9 @@ library(tibble) # Data manipulation
 library(ggplot2) # Data visualization
 library(ggthemes) # Data visualization
 library(RColorBrewer) # Data visualization
+library(rsconnect)
+
+
 
 pacman::p_load(
   rio,          # File import
