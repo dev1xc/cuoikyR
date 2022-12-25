@@ -32,6 +32,14 @@ body <- dashboardBody(
         tableOutput("table4")
       ),
     )
+    ),
+    tabItem(tabName = "graph",
+            h2("Graph tab content"),
+    box( 
+      title = "Tỉ lệ xuất viện và độ tuổi",
+      plotOutput("graph1")
+     ),          
+      
     )
   )
 )
@@ -66,7 +74,7 @@ server <- function(input, output) {
       geom_line(aes(y = .fitted), colour = "red")
   )
   
-  
+  #########################################################
   output$table1 <- renderTable(
     table1,
     
@@ -83,7 +91,22 @@ server <- function(input, output) {
     table4,
     
   )
-
+  
+  
+  
+  ###################################################################
+  output$graph1 <- renderPlot(
+    linelist %>%                      # begin with linelist
+      count(age_cat, outcome1) %>%     # group and tabulate counts by two columns
+      ggplot()+                       # pass new data frame to ggplot
+      geom_col(                     # create bar plot
+        mapping = aes(   
+          x = outcome1,              # map outcome to x-axis
+          fill = age_cat,           # map age_cat to the fill
+          y = n))                   # map the counts column `n` to the height
+    
+  )
+  
 }
 
 
