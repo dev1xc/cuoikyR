@@ -329,7 +329,7 @@ server <- function(input, output,session) {
 
   )
   output$table4 <- renderTable(
-    table4,
+    table3,
 
   )
 
@@ -357,5 +357,5 @@ server <- function(input, output,session) {
 
 
 shinyApp(ui, server)
-
+  
 
