@@ -167,7 +167,7 @@ graph3 <- linelist %>%
              position = position_stack(vjust = 0.5)) +
   theme_few() +
   theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
-  ggtitle("Biểu đồ tỉ lệ giữ bệnh viện và xuất viện") +
+  ggtitle("Biểu đồ tỉ lệ giữa bệnh viện và xuất viện") +
   scale_x_discrete(name= "Bệnh viện") +
   scale_y_continuous(name = "Tổng bệnh nhân") +
   scale_fill_discrete(name = "Outcome", labels = c("Hồi phục", "Chết"))
@@ -196,12 +196,16 @@ graph4
 
 graph5 <- ggplot(data=hospital_gender_ratio , aes(x=hospital, y=Count, group=gender,colour = gender )) +
   geom_line(aes(linetype=gender,lwd = "10px"))+
+  theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
+  ggtitle("Tỉ lệ giữa bệnh viện - giới tính")+
   geom_point()
 graph5  
 
 
 graph6 <- ggplot(data=age_cat_ratio, aes(x=age_cat, y=Count, group=outcome,colour = outcome )) +
   geom_line(aes(linetype=outcome,lwd = "10px"))+
+  theme(plot.title = element_text(hjust = 0.5, size=18, color = "#054354")) +
+  ggtitle("Tỉ lệ giữa xuất viện - tuổi")+
   geom_point()
 graph6
 

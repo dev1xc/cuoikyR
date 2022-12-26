@@ -132,7 +132,7 @@ body2 <-
   ),
   tabBox(
     width = 8,
-
+    
     tabPanel("Point PLot", plotOutput(outputId = "scatterplot")),
     tabPanel("Bar Plot", plotOutput(outputId = "scatterplot1")),
     tabPanel("Histogram Plot",plotOutput(outputId = "test")),
@@ -162,6 +162,7 @@ body <- dashboardBody(
                
             ),
             tabBox(
+              
               width = "auto",
               tabPanel("Tuyến tính đơn biến", plotOutput(outputId = "plot1")),
               tabPanel("Tuyến tính đa biến", plotOutput(outputId = "plot2")),
@@ -174,18 +175,22 @@ body <- dashboardBody(
       ),
     fluidRow(
       box(
+        status = "danger",
            title = "Tỉ lệ tuổi và giới tính",
         tableOutput("table1")
       ),
       box( 
+        status = "primary",
            title = "Tỉ lệ tuổi và xuất viện",
            tableOutput("table4")
       ),
       box( 
+        status = "success",
         title = "Tỉ lệ bệnh viện và giới tính",
         tableOutput("table3")
       ),
       box( 
+        status = "warning",
         title = "Tỉ lệ xuất viện và độ tuổi",
         tableOutput("table2")
       ),
@@ -193,28 +198,29 @@ body <- dashboardBody(
     ),
     tabItem(tabName = "graph",
             h2("Graph tab content"),
-    fluidRow(box( 
-      title = "Tỉ lệ xuất viện và độ tuổi",
+    fluidRow(
+      box( 
+        status = "danger",
       plotOutput("graph1")
     ),    
     box( 
-      title = "Tỉ lệ giới tính và xuất viện",
+      status = "primary",
       plotOutput("graph2")
     ),    
     box( 
-      title = "Tỉ lệ giữa bệnh viện và độ tuổi",
+      status = "info",
       plotOutput("graph3")
     ),    
     box( 
-      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      status = "warning",
       plotOutput("graph4")
     ),    
     box( 
-      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      status = "success",
       plotOutput("graph5")
     ),    
     box( 
-      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      status = "danger",
       plotOutput("graph6")
     ),    
     )
@@ -234,10 +240,10 @@ ui <- dashboardPage(
   dashboardHeader(title = "Basic dashboard"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-      menuItem("Tuyến tính", tabName = "linear", icon = icon("th")),
-      menuItem("Bảng", tabName = "table", icon = icon("th")),
-      menuItem("Biểu đồ", tabName = "graph", icon = icon("th"))
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard"),badgeLabel = "new"),
+      menuItem("Tuyến tính", tabName = "linear", icon = icon("list"),badgeLabel = "new"),
+      menuItem("Bảng", tabName = "table", icon = icon("th"),badgeLabel = "new"),
+      menuItem("Biểu đồ", tabName = "graph", icon = icon("circle"),badgeLabel = "new")
     )
   ),
   body
