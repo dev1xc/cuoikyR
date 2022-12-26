@@ -91,6 +91,27 @@ hospital_gender_outcome_ratio <- linelist %>%
 hospital_gender_outcome_ratio
 
 
+
+disease_ratio <- linelist %>%
+  group_by(fever, chills, cough, aches, vomit) %>%
+  summarise(Count = n()) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+disease_ratio
+
+disease_outcome_ratio <- linelist %>%
+  group_by(outcome,fever, chills, cough, aches, vomit) %>%
+  summarise(Count = n()) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+disease_outcome_ratio
+
+disease_outcome_gender_ratio <- linelist %>%
+  group_by(outcome,gender,fever, chills, cough, aches, vomit) %>%
+  summarise(Count = n()) %>%
+  mutate(Percentage = round(Count/sum(Count)*100))
+disease_outcome_gender_ratio
+
+
+
 graph1 <- linelist %>%
   ggplot() +
   geom_bar(aes(x = age_cat, fill = outcome)) +
@@ -172,4 +193,15 @@ graph4 <- linelist %>%
   scale_y_continuous(name = "Passenger Count", limits = c(0,360)) +
   scale_fill_discrete(name = "Xuất viện", labels = c("Chết", "Sống"))
 graph4
+
+graph5 <- ggplot(data=hospital_gender_ratio , aes(x=hospital, y=Count, group=gender,colour = gender )) +
+  geom_line(aes(linetype=gender,lwd = "10px"))+
+  geom_point()
+graph5  
+
+
+graph6 <- ggplot(data=age_cat_ratio, aes(x=age_cat, y=Count, group=outcome,colour = outcome )) +
+  geom_line(aes(linetype=outcome,lwd = "10px"))+
+  geom_point()
+graph6
 

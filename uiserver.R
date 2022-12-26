@@ -8,6 +8,7 @@ body1 <- fluidRow(
   valueBox(valuebox3, "Cân nặng trung bình", icon = icon("credit-card"), color = "teal"),
   valueBox(valuebox4, "% bệnh nhân khỏi bệnh", icon = icon("credit-card"), color = "aqua"),
   valueBox(valuebox5, "Tuổi trung bình", icon = icon("credit-card"), color = "olive"),
+  valueBox(valuebox6, "BMI trung bình", icon = icon("credit-card"), color = "yellow"),
 )
 
 body2 <- 
@@ -207,7 +208,16 @@ body <- dashboardBody(
     box( 
       title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
       plotOutput("graph4")
-    ),    )
+    ),    
+    box( 
+      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      plotOutput("graph5")
+    ),    
+    box( 
+      title = "Tỉ lệ bệnh viện - giới tính - xuất viện",
+      plotOutput("graph6")
+    ),    
+    )
       
     )
   )
@@ -350,6 +360,14 @@ server <- function(input, output,session) {
   )
   output$graph4 <- renderPlot(
     graph4           # map the counts column `n` to the height
+    
+  )
+  output$graph5 <- renderPlot(
+    graph5           # map the counts column `n` to the height
+    
+  )
+  output$graph6 <- renderPlot(
+    graph6           # map the counts column `n` to the height
     
   )
 
