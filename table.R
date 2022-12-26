@@ -50,14 +50,6 @@ table2 <-linelist %>%                  # begin with linelist
 table2
 
 
-age_by_outcome <- linelist %>%                  # begin with linelist
-  group_by(outcome) %>%                         # group by outcome 
-  count(age_cat) %>%                            # group and count by age_cat, and then remove age_cat grouping
-  mutate(percent = scales::percent(n / sum(n))) # calculate percent - note the denominator is by outcome group
-table4<-age_by_outcome
-table4
-
-
 totals <- linelist %>% 
   filter(!is.na(outcome) & hospital != "Missing") %>%
   group_by(outcome) %>%                            # Grouped only by outcome, not by hospital    
@@ -80,7 +72,7 @@ by_hospital # print table
 
 table_long <- bind_rows(by_hospital, totals) %>% 
   mutate(hospital = replace_na(hospital, "Total"))
-table_long
+table3 <- table_long
 
 
 

@@ -177,8 +177,8 @@ body <- dashboardBody(
         tableOutput("table1")
       ),
       box( 
-           title = "Tỉ lệ bệnh viện và giới tính",
-           tableOutput("table2")
+           title = "Tỉ lệ tuổi và xuất viện",
+           tableOutput("table4")
       ),
       box( 
         title = "Tỉ lệ bệnh viện và giới tính",
@@ -186,7 +186,7 @@ body <- dashboardBody(
       ),
       box( 
         title = "Tỉ lệ xuất viện và độ tuổi",
-        tableOutput("table4")
+        tableOutput("table2")
       ),
     )
     ),
@@ -323,7 +323,9 @@ server <- function(input, output,session) {
 
   )
   output$table3 <- renderTable(
-    table3,
+    hospital_gender_outcome_ratio,
+    options = list(pageLength = 20, scrollX = TRUE,
+                   scrollY = "500px"),
 
   )
   output$table4 <- renderTable(

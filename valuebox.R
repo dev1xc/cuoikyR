@@ -8,3 +8,4 @@ calc_survival_ratio <- round((sum(linelist$outcome == "Recover")/valuebox1)*100,
 valuebox4 <- paste0(calc_survival_ratio, " %")
 
 valuebox5 <- median(linelist$age)
+valuebox5 

@@ -55,14 +55,14 @@ pacman::p_load(
 )
 
 # import the linelist
-linelist <- read_rds("./linelist_cleaned.rds")
-View(linelist)
-n_total <- nrow(linelist)
-linelist <- na.omit(linelist)
-n_total <- nrow(linelist)
-min_date <- min(linelist$date_hospitalisation)
-max_date <- max(linelist$date_hospitalisation)
-
+# linelist <- read_rds("./linelist_cleaned.rds")
+# View(linelist)
+# n_total <- nrow(linelist)
+# linelist <- na.omit(linelist)
+# n_total <- nrow(linelist)
+# min_date <- min(linelist$date_hospitalisation)
+# max_date <- max(linelist$date_hospitalisation)
+# 
 
 
 # sum(linelist$outcome == 0) 
